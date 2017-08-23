@@ -36,6 +36,7 @@ args.forEach(function(arg){
   if (problem) problem();
 });
 
+
 function problemA () {
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * *
    *
@@ -44,14 +45,25 @@ function problemA () {
    */
 
   // callback version
-  readFile('poem-one/stanza-01.txt', function (err, stanza) {
-    console.log('-- A. callback version --');
-    blue(stanza);
-  });
+  // readFile('poem-one/stanza-01.txt', function (err, stanza) {
+  //   console.log('-- A. callback version --');
+  //   blue(stanza);
+  // });
 
   // promise version
-  // ???
-
+  const readFileProm = (poem) => {
+    return new Promise((resolve, reject) => {
+      readFile(poem, (err, stanza) => {
+        if (stanza) {
+          blue(stanza);
+          resolve(stanza);
+        } else {
+          reject(err);
+        }
+      });
+    });
+  };
+  readFileProm('poem-one/stanza-01.txt');
 }
 
 function problemB () {
@@ -63,17 +75,31 @@ function problemB () {
    */
 
   // callback version
-  readFile('poem-one/stanza-02.txt', function (err, stanza2) {
-    console.log('-- B. callback version (stanza two) --');
-    blue(stanza2);
-  });
-  readFile('poem-one/stanza-03.txt', function (err, stanza3) {
-    console.log('-- B. callback version (stanza three) --');
-    blue(stanza3);
-  });
+  // readFile('poem-one/stanza-02.txt', function (err, stanza2) {
+  //   console.log('-- B. callback version (stanza two) --');
+  //   blue(stanza2);
+  // });
+  // readFile('poem-one/stanza-03.txt', function (err, stanza3) {
+  //   console.log('-- B. callback version (stanza three) --');
+  //   blue(stanza3);
+  // });
 
   // promise version
-  // ???
+  const readFileProm = (poem) => {
+    return new Promise((resolve, reject) => {
+      readFile(poem, (err, stanza) => {
+        if (stanza) {
+          blue(stanza);
+          resolve(stanza);
+        } else {
+          reject(err);
+        }
+      });
+    });
+  };
+
+  readFileProm('poem-one/stanza-02.txt')
+  readFileProm('poem-one/stanza-03.txt');
 
 }
 
@@ -89,18 +115,37 @@ function problemC () {
    */
 
   // callback version
-  readFile('poem-one/stanza-02.txt', function (err, stanza2) {
-    console.log('-- C. callback version (stanza two) --');
-    blue(stanza2);
-    readFile('poem-one/stanza-03.txt', function (err, stanza3) {
-      console.log('-- C. callback version (stanza three) --');
-      blue(stanza3);
-      console.log('-- C. callback version done --');
+  // readFile('poem-one/stanza-02.txt', function (err, stanza2) {
+  //   console.log('-- C. callback version (stanza two) --');
+  //   blue(stanza2);
+  //   readFile('poem-one/stanza-03.txt', function (err, stanza3) {
+  //     console.log('-- C. callback version (stanza three) --');
+  //     blue(stanza3);
+  //     console.log('-- C. callback version done --');
+  //   });
+  // });
+
+  const readFileProm = (poem) => {
+    return new Promise((resolve, reject) => {
+      readFile(poem, (err, stanza) => {
+        if (stanza) {
+          blue(stanza);
+          resolve(stanza);
+        } else {
+          reject(err);
+        }
+      });
     });
-  });
+  };
 
   // promise version (hint: don't need to nest `then` calls)
-  // ???
+  readFileProm('poem-one/stanza-02.txt')
+    .then(() => {
+      return readFileProm('poem-one/stanza-03.txt');
+    })
+    .then(() => {
+      console.log('done');
+    });
 
 }
 
@@ -112,14 +157,28 @@ function problemD () {
    */
 
   // callback version
-  readFile('poem-one/wrong-file-name.txt', function (err, stanza4) {
-    console.log('-- D. callback version (stanza four) --');
-    if (err) magenta(err);
-    else blue(stanza4);
-  });
+  // readFile('poem-one/wrong-file-name.txt', function (err, stanza4) {
+  //   console.log('-- D. callback version (stanza four) --');
+  //   if (err) magenta(err);
+  //   else blue(stanza4);
+  // });
 
   // promise version
-  // ???
+  const readFileProm = (poem) => {
+    return new Promise((resolve, reject) => {
+      readFile(poem, (err, stanza) => {
+        if (stanza) {
+          blue(stanza);
+          resolve(stanza);
+        } else {
+          reject(err);
+        }
+      });
+    });
+  };
+
+  readFileProm('poem-one/wrong-file-name.txt')
+    .catch(err => magenta(err));
 
 }
 
@@ -132,19 +191,36 @@ function problemE () {
    */
 
   // callback version
-  readFile('poem-one/stanza-03.txt', function (err, stanza3) {
-    console.log('-- E. callback version (stanza three) --');
-    if (err) return magenta(err);
-    blue(stanza3);
-    readFile('poem-one/wrong-file-name.txt', function (err2, stanza4) {
-      console.log('-- E. callback version (stanza four) --');
-      if (err2) return magenta(err2);
-      blue(stanza4);
-    });
-  });
+  // readFile('poem-one/stanza-03.txt', function (err, stanza3) {
+  //   console.log('-- E. callback version (stanza three) --');
+  //   if (err) return magenta(err);
+  //   blue(stanza3);
+  //   readFile('poem-one/wrong-file-name.txt', function (err2, stanza4) {
+  //     console.log('-- E. callback version (stanza four) --');
+  //     if (err2) return magenta(err2);
+  //     blue(stanza4);
+  //   });
+  // });
 
   // promise version
-  // ???
+  const readFileProm = (poem) => {
+    return new Promise((resolve, reject) => {
+      readFile(poem, (err, stanza) => {
+        if (stanza) {
+          blue(stanza);
+          resolve(stanza);
+        } else {
+          reject(err);
+        }
+      });
+    });
+  };
+
+  readFileProm('poem-one/stanza-03.txt')
+    .then(() => {
+      return readFileProm('poem-one/wrong-file-name.txt');
+    })
+    .catch(err => magenta(err));
 
 }
 
@@ -174,7 +250,24 @@ function problemF () {
     });
   });
 
-  // promise version
-  // ???
+  const readFileProm = (poem) => {
+    return new Promise((resolve, reject) => {
+      readFile(poem, (err, stanza) => {
+        if (stanza) {
+          blue(stanza);
+          resolve(stanza);
+        } else {
+          magenta(err);
+          console.log('-- F. callback version done --');
+          reject(err);
+        }
+      });
+    });
+  };
+
+  readFileProm('poem-one/stanza-03.txt')
+    .then(() => {
+      return readFileProm('poem-one/wrong-file-name.txt');
+    });
 
 }
